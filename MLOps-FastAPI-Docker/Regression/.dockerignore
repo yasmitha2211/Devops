@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.git
+.gitignore
+.vscode
+.idea
+*.ipynb
+.env
+venv/
+.DS_Store
+metrics.json
