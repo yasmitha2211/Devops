@@ -1,0 +1,51 @@
+name: MLOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_REPO_ID: ${{ vars.HF_REPO_ID }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Tests
+        run: |
+          pytest
+
+      - name: Prepare Data
+        run: |
+          python src/prepare.py
+
+      - name: Train Model
+        run: |
+          python src/train.py
+
+      - name: Evaluate Model
+        run: |
+          python src/evaluate.py
+
+      - name: Upload Model to Hugging Face
+        if: github.ref == 'refs/heads/main'
+        run: |
+          python src/register.py
