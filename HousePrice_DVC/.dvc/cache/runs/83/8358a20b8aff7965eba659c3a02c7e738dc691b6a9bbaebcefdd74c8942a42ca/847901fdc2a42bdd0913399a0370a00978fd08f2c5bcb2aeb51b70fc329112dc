@@ -1,0 +1,15 @@
+cmd: python src/data_ingestion.py
+deps:
+- path: HousingData.csv
+  hash: md5
+  md5: 9d9460d994e88c868ee98ea23e6c4111
+  size: 35008
+- path: src/data_ingestion.py
+  hash: md5
+  md5: d19e049ae76ac75402bd5bc121ec5040
+  size: 744
+outs:
+- path: data/raw/data.csv
+  hash: md5
+  md5: dda2e29fc7dca935c0b63b52e6d068fe
+  size: 37134
