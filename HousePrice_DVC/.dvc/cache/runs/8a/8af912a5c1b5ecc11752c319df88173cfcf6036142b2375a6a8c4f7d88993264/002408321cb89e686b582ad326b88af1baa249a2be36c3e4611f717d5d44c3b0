@@ -1,0 +1,16 @@
+cmd: python src/feature_engineering.py
+deps:
+- path: data/processed/data.csv
+  hash: md5
+  md5: 43d20077095d5bc4b090949a97a646af
+  size: 37934
+- path: src/feature_engineering.py
+  hash: md5
+  md5: fe0c37a7ffd035c05509edf6f78c4805
+  size: 2051
+outs:
+- path: data/features
+  hash: md5
+  md5: f026851d71f4eb38328a2a319078269c.dir
+  size: 133755
+  nfiles: 4

@@ -1,0 +1,84 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data_ingestion.py
+    deps:
+    - path: HousingData.csv
+      hash: md5
+      md5: 9d9460d994e88c868ee98ea23e6c4111
+      size: 35008
+    - path: src/data_ingestion.py
+      hash: md5
+      md5: d19e049ae76ac75402bd5bc121ec5040
+      size: 744
+    outs:
+    - path: data/raw/data.csv
+      hash: md5
+      md5: dda2e29fc7dca935c0b63b52e6d068fe
+      size: 37134
+  data_preprocessing:
+    cmd: python src/data_preprocessing.py
+    deps:
+    - path: data/raw/data.csv
+      hash: md5
+      md5: dda2e29fc7dca935c0b63b52e6d068fe
+      size: 37134
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: 800c2964299f8f0bacc5b87d73310cc3
+      size: 1176
+    outs:
+    - path: data/processed/data.csv
+      hash: md5
+      md5: 43d20077095d5bc4b090949a97a646af
+      size: 37934
+  feature_engineering:
+    cmd: python src/feature_engineering.py
+    deps:
+    - path: data/processed/data.csv
+      hash: md5
+      md5: 43d20077095d5bc4b090949a97a646af
+      size: 37934
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: fe0c37a7ffd035c05509edf6f78c4805
+      size: 2051
+    outs:
+    - path: data/features
+      hash: md5
+      md5: f026851d71f4eb38328a2a319078269c.dir
+      size: 133755
+      nfiles: 4
+  model_building:
+    cmd: python src/model_building.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: f026851d71f4eb38328a2a319078269c.dir
+      size: 133755
+      nfiles: 4
+    - path: src/model_building.py
+      hash: md5
+      md5: 8f4440c61dd1569281bd89862cab2fd8
+      size: 919
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: c51c1c028f9d07f58bdeb522890029c6
+      size: 3506833
+  model_evaluation:
+    cmd: python src/model_evaluation.py
+    deps:
+    - path: model.pkl
+      hash: md5
+      md5: c51c1c028f9d07f58bdeb522890029c6
+      size: 3506833
+    - path: src/model_evaluation.py
+      hash: md5
+      md5: fed57e8e874d498e99c660c216eff823
+      size: 1162
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 46af1a71400abe6366a288552d9ddb57
+      size: 105
